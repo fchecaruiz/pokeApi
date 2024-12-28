@@ -15,7 +15,7 @@ body{
     justify-content: center;
     align-items: center;
     box-sizing:border-box ;
-    background: linear-gradient(orange,red,blue);
+    background: linear-gradient(rgb(102, 255, 0),red,rgb(125, 82, 205));
 }
 
 
@@ -32,3 +32,4 @@ button{
     border:1px solid black;
     cursor:pointer;
 }
+

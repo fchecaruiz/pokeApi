@@ -10,13 +10,14 @@ function obtenerPokemon() {
         if (!response) {//si la repuesta es invalida , salta el alert
             alert("pokemon no encontrado")
         }
-    
-    console.log("Respuesta válida", response);  // se imprime la respuesta completa
+    console.log("Respuesta valida ", response);  // se imprime la respuesta completa
     return response.json(); // se convierte a formato json si la respuesta es valida
 
 })
 
     .then((data) => {// este the se ejecuta si la respesta es valida
+        console.log(data)// compruebo en consola los datos convertidos a json
+        // al verlos en consola, observo como puedo acceder a eos datos , data.name, data.sprites......etc....
         if (data) { //data son los datos que ha recopilado de la api y verifica el if que sean correctos
 
             const nombrePokemon = data.name; //se guarda el nombre del pokemon en la variable nombrePokemon
@@ -25,7 +26,7 @@ function obtenerPokemon() {
             // .........la parte de sprites, front_default estan las imagenes
            
             const habilidadesPokemon = [];// las habilidades estan en un array, y hay que recorrer ese arrya para seleccionar el pokemon de esa url
-            for (let habilidad of data.abilities) {
+            for (let habilidad of data.abilities) {// hago un for of que es el mas facil para mi en este caso
                 habilidadesPokemon.push(habilidad.ability.name)
     }
 
@@ -41,24 +42,23 @@ function obtenerPokemon() {
 }
 
 
-function mostrarPokemon(nombre, imagen, habilidades) {
+function mostrarPokemon(nombre, imagen, habilidades) {//selecciono .container para mostrar todos los datos en la vista
     const contenedor = document.querySelector(".container");
 
     // https://www.youtube.com/watch?v=myxPDjhHAVA&t=880s  / ESTE VIDEO APRENDI LO DE LAS COMILLAS INVERTIDAS Y VARIOS TEMAS MAS
 
-    contenedor.innerHTML = `<h2>${nombre}</h2>`;
+    contenedor.innerHTML = `<h1>${nombre}</h1>`;// con innerHtml cambiamos a traves del Dom todos los datos de la vista
 
     
     contenedor.innerHTML += `<img src="${imagen}" alt="${nombre}">`;
 
    
-    let habilidadesHTML = "<ul>";
-
-    habilidades.forEach(habilidad => {
+    let habilidadesHTML = "<ul>";// abrimos lista 
+    for (let habilidad of habilidades) {
         habilidadesHTML += `<li>${habilidad}</li>`;
-    })
+    }
 
-    habilidadesHTML += "</ul>";
+    habilidadesHTML += "</ul>";// cerrramos lista 
 
     contenedor.innerHTML += habilidadesHTML;
 }
