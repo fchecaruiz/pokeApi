@@ -1,4 +1,3 @@
-const { Toast } = require("ngx-toastr");
 
 function obtenerPokemon() {
     const nombre = document.getElementById("nombre").value;//recojo nombre con el id
@@ -8,14 +7,15 @@ function obtenerPokemon() {
     fetch(url)// realiza una http a la variable url que devuelve una promesa
 
     .then((response) => {
-        if (!response) {//repuesta de cualquier estado distinto de 200
+        if (!response) {//si la repuesta es invalida , salta el alert
             alert("pokemon no encontrado")
-            return;//este return frena la secuancia en caso de respuesta erronea
-
-        } else {
-            return response.json() //la respuesta valida se convierte a formato json
         }
-    })
+    
+    console.log("Respuesta válida", response);  // se imprime la respuesta completa
+    return response.json(); // se convierte a formato json si la respuesta es valida
+
+})
+
     .then((data) => {// este the se ejecuta si la respesta es valida
         if (data) { //data son los datos que ha recopilado de la api y verifica el if que sean correctos
 
@@ -24,7 +24,7 @@ function obtenerPokemon() {
             const imagenPokemon = data.sprites.front_default;  // se guarda la imagen. la obtengo en la web mirando la direccion url con un nombre de un pokemon...
             // .........la parte de sprites, front_default estan las imagenes
            
-            const habilidadesPokemon = [];
+            const habilidadesPokemon = [];// las habilidades estan en un array, y hay que recorrer ese arrya para seleccionar el pokemon de esa url
             for (let habilidad of data.abilities) {
                 habilidadesPokemon.push(habilidad.ability.name)
     }
